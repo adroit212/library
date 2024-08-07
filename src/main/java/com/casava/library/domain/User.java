@@ -3,6 +3,7 @@ package com.casava.library.domain;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -14,5 +15,6 @@ public class User {
     @NotBlank(message = "Email is required")
     private String email;
     @NotNull(message = "Membership Date is required")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime membershipDate;
 }

@@ -18,7 +18,7 @@ public class BookService {
     private final ModelMapper modelMapper;
     private final BookRepository bookRepository;
 
-    private Book save(Book book){
+    public Book save(Book book){
         BookEntity bookEntity = modelMapper.map(book,BookEntity.class);
         return modelMapper.map(bookRepository.save(bookEntity),Book.class);
     }

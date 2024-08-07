@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,5 +15,5 @@ public class UserEntity {
     private String id;
     private String fullName;
     private String email;
-    private LocalDateTime membershipDate;
+    private LocalDate membershipDate;
 }

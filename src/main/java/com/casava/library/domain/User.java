@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 public class User {
@@ -16,5 +16,5 @@ public class User {
     private String email;
     @NotNull(message = "Membership Date is required")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime membershipDate;
+    private LocalDate membershipDate;
 }

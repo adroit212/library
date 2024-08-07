@@ -1,6 +1,7 @@
 package com.casava.library.controller;
 
 import com.casava.library.domain.Loan;
+import com.casava.library.domain.UserLoans;
 import com.casava.library.service.LoanService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,10 @@ public class LoanController {
     @GetMapping
     public ResponseEntity<List<Loan>> allLoans(){
         return ResponseEntity.ok(loanService.findAll());
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<UserLoans> getUserLoans(@RequestParam String userId){
+        return ResponseEntity.ok(loanService.getUserLoans(userId));
     }
 }

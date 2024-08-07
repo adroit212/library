@@ -2,6 +2,8 @@ package com.casava.library.service;
 
 import com.casava.library.domain.Book;
 import com.casava.library.domain.Loan;
+import com.casava.library.domain.UserLoanData;
+import com.casava.library.domain.UserLoans;
 import com.casava.library.model.LoanEntity;
 import com.casava.library.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +11,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -75,5 +79,19 @@ public class LoanService {
     public List<Loan> findAll(){
         return loanRepository.findAll().stream().map(entity->
                 modelMapper.map(entity,Loan.class)).toList();
+    }
+
+    public List<Loan> findAllByUserIdOrderByLoanDateDesc(String userId){
+        return loanRepository.findAllByUserIdOrderByLoanDateDesc(userId).stream().map(entity -> modelMapper.map(entity,Loan.class)).toList();
+    }
+
+    public UserLoans getUserLoans(String userId){
+        List<Loan> loans = findAllByUserIdOrderByLoanDateDesc(userId);
+        List<UserLoanData> loanData = loans.stream().map(loan ->
+                UserLoanData.builder().loan(loan).book(bookService.findById(loan.getBookId())).build()).toList();
+        return UserLoans.builder()
+                .userId(userId)
+                .userLoanData(loanData)
+                .build();
     }
 }
